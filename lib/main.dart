@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ledbim_project/view/todolist_screen.dart';
+import 'package:ledbim_project/view/userlist_screen.dart';
 
-void main() async{
-
+void main() async {
   runApp(const MyApp());
 }
 
@@ -12,12 +13,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Ledbim Project',
-      theme: ThemeData(
-      ),
-      home:  HomePage(),
+      theme: ThemeData(),
+      home: HomePage(),
     );
   }
 }
+
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -26,7 +27,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  final _pageOptions = [    UserListScreen(),    TodoListScreen(),  ];
+  final _pageOptions = [
+    const UserListScreen(),
+    TodoListScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
