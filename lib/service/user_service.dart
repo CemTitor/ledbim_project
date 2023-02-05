@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../main.dart';
+import '../model/user.dart';
 
 class UserService {
   UserService();
@@ -76,7 +77,21 @@ class UserService {
     }
   }
 
+  Future<List<User>> getUserList() async {
 
+    final response = await http.get(Uri.https(baseUrl,'/api/users'));
+    if (response.statusCode == 200) {
+      final responseJson = jsonDecode(response.body);
+      List<User> users = [];
+      for (var item in responseJson['data']) {
+        print("item: $item");
+        users.add(User.fromJson(item));
+      }
+      return users;
+    } else {
+      throw Exception('Failed to load users');
+    }
+  }
 }
 
 class LoginFailure implements Exception {}

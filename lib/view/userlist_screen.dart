@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../model/user.dart';
 import '../service/user_service.dart';
 import 'login_screen.dart';
 
@@ -13,6 +14,7 @@ class _UserListScreenState extends State<UserListScreen> {
 
   final UserService _userService = UserService();
 
+  List<User> userList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,21 @@ class _UserListScreenState extends State<UserListScreen> {
             icon: const Icon(Icons.refresh),
             onPressed: () async {
 
+              userList = await _userService.getUserList();
+              setState(() {
+              });
             },
           ),
         ],
       ),
-      body: const Text(''),
+      body: ListView.builder(
+          itemCount: userList.length,
+          itemBuilder: (context, index) {
+        return ListTile(
+          title: Text('${userList[index].first_name}'),
+          // subtitle: Text(userList[index].email),
+        );
+      }),
     );
   }
 }
