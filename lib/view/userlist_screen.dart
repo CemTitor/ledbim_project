@@ -16,6 +16,16 @@ class _UserListScreenState extends State<UserListScreen> {
   List<User> userList = [];
 
   @override
+  void initState() {
+    super.initState();
+
+    _userService.getUserList().then((value) {
+      userList = value;
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -42,7 +52,12 @@ class _UserListScreenState extends State<UserListScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: userList.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          :
+        ListView.builder(
           itemCount: userList.length,
           itemBuilder: (context, index) {
             return ListTile(
