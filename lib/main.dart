@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ledbim_project/view/login_screen.dart';
 import 'package:ledbim_project/view/todolist_screen.dart';
 import 'package:ledbim_project/view/userlist_screen.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ledbim Project',
       theme: ThemeData(),
-      home: const HomePage(),
+      home: const LoginScreen(),
     );
   }
 }
