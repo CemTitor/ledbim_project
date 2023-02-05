@@ -11,7 +11,6 @@ class UserListScreen extends StatefulWidget {
 }
 
 class _UserListScreenState extends State<UserListScreen> {
-
   final UserService _userService = UserService();
 
   List<User> userList = [];
@@ -37,10 +36,8 @@ class _UserListScreenState extends State<UserListScreen> {
           IconButton(
             icon: const Icon(Icons.refresh),
             onPressed: () async {
-
               userList = await _userService.getUserList();
-              setState(() {
-              });
+              setState(() {});
             },
           ),
         ],
@@ -48,11 +45,14 @@ class _UserListScreenState extends State<UserListScreen> {
       body: ListView.builder(
           itemCount: userList.length,
           itemBuilder: (context, index) {
-        return ListTile(
-          title: Text('${userList[index].first_name}'),
-          // subtitle: Text(userList[index].email),
-        );
-      }),
+            return ListTile(
+              title: Text('${userList[index].first_name} ${userList[index].last_name}'),
+              subtitle: Text('${userList[index].email}'),
+              leading: CircleAvatar(
+                backgroundImage: NetworkImage('${userList[index].avatar}'),
+              ),
+            );
+          }),
     );
   }
 }
