@@ -14,12 +14,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Ledbim Project',
       theme: ThemeData(),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   final _pageOptions = [
     const UserListScreen(),
-    TodoListScreen(),
+    const TodoListScreen(),
   ];
 
   @override

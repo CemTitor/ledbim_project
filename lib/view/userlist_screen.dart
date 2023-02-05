@@ -17,12 +17,12 @@ class _UserListScreenState extends State<UserListScreen> {
         title: const Text('User List'),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.exit_to_app),
+            icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => LoginScreen(),
+                  builder: (context) => const LoginScreen(),
                 ),
               );
             },
