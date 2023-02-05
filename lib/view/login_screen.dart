@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ledbim_project/service/user_service.dart';
 import 'package:ledbim_project/view/register_screen.dart';
-import '../main.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -47,13 +46,13 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                _userService.login(_emailController.text, _passwordController.text,);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
+                _userService.login(_emailController.text, _passwordController.text,context);
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const HomePage(),
+                //   ),
+                // );
               },
               child: const Text('Login'),
             ),

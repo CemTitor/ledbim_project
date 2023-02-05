@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../service/user_service.dart';
 import 'login_screen.dart';
 
 class UserListScreen extends StatefulWidget {
@@ -10,6 +11,9 @@ class UserListScreen extends StatefulWidget {
 
 class _UserListScreenState extends State<UserListScreen> {
 
+  final UserService _userService = UserService();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +23,7 @@ class _UserListScreenState extends State<UserListScreen> {
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
+              _userService.logout();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
