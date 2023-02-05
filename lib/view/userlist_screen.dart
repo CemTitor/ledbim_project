@@ -31,6 +31,14 @@ class _UserListScreenState extends State<UserListScreen> {
       appBar: AppBar(
         title: const Text('User List'),
         actions: <Widget>[
+
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: () async {
+              userList = await _userService.getUserList();
+              setState(() {});
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () async{
@@ -41,13 +49,6 @@ class _UserListScreenState extends State<UserListScreen> {
                   builder: (context) => const LoginScreen(),
                 ),
               );
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.refresh),
-            onPressed: () async {
-              userList = await _userService.getUserList();
-              setState(() {});
             },
           ),
         ],
