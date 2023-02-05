@@ -17,14 +17,6 @@ class _TodoListScreenState extends State<TodoListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Todo List'),
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.add),
-            onPressed: () {
-              _addTodo();
-            },
-          ),
-        ],
       ),
       body: ListView.builder(
         itemCount: _todos.length,
@@ -42,6 +34,13 @@ class _TodoListScreenState extends State<TodoListScreen> {
           );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _addTodo();
+        },
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -51,8 +50,10 @@ class _TodoListScreenState extends State<TodoListScreen> {
         builder: (BuildContext context) {
       String? taskName;
       return AlertDialog(
+
         title: const Text('Add Todo'),
         content: TextField(
+          autofocus: true,
           onChanged: (String value) {
             taskName = value;
           },
