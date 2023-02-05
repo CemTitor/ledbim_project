@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ledbim_project/service/user_service.dart';
 import 'package:ledbim_project/view/register_screen.dart';
 import '../main.dart';
 
@@ -11,9 +12,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+
+  final UserService _userService = UserService();
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                hintText: 'Username',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
             TextField(
               controller: _emailController,
               decoration: const InputDecoration(
@@ -52,6 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
+                _userService.login(_emailController.text, _passwordController.text,);
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(

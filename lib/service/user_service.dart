@@ -28,18 +28,22 @@ class UserService {
     }
   }
 
-  Future<void> login(String email,String username,String password) async {
+  Future<void> login(String email,String password) async {
 
     final response = await http.post(
-      Uri.https('reqres.in','/api/login'),
+      Uri.https(baseUrl,'/api/login'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode({
         'email': email,
-        'username': username,
         'password': password,
       }),
     );
     if(response.statusCode != 200){
+      if (kDebugMode) {
+        print(response.statusCode);
+        print(response.body);
+
+      }
       throw UserRequestFailure();
     }
     if (kDebugMode) {
