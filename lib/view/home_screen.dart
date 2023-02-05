@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:ledbim_project/view/todolist_screen.dart';
 import 'package:ledbim_project/view/userlist_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final _pageOptions = [
