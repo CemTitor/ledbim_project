@@ -23,8 +23,8 @@ class _UserListScreenState extends State<UserListScreen> {
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              _userService.logout();
+            onPressed: () async{
+              await _userService.logout();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
