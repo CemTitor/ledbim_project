@@ -23,25 +23,6 @@ class UserService {
 
   }
 
-  Future<void> register(String email, String username, String password) async {
-    final response = await http.post(
-      Uri.https(baseUrl, '/api/register'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'email': email,
-        'username': username,
-        'password': password,
-      }),
-    );
-    if (response.statusCode != 200) {
-      throw LoginFailure();
-    }
-    if (kDebugMode) {
-      print(response.statusCode);
-      print(response.body);
-    }
-  }
-
   Future<void> login(
       String email, String password, BuildContext context) async {
     final response = await http.post(
