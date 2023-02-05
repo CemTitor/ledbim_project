@@ -3,19 +3,25 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:ledbim_project/view/home_screen.dart';
 
-import '../main.dart';
 import '../model/user.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-final storage = FlutterSecureStorage();
+const storage = FlutterSecureStorage();
+const baseUrl = 'reqres.in';
 
 class UserService {
   UserService();
 
-  static const baseUrl = 'reqres.in';
+  Future<bool> isUserAlreadyLogged() async {
+    if(await storage.containsKey(key: 'email')){
+      return true;
+    }
+    return false;
 
+  }
 
   Future<void> register(String email, String username, String password) async {
     final response = await http.post(
@@ -57,35 +63,18 @@ class UserService {
         print(response.statusCode);
         print(response.body);
       }
-
+      /// save email and password to secure storage when login
       await storage.write(key: 'email', value: email);
       await storage.write(key: 'password', value: password);
+
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     }
   }
-
-  Future<bool> checkLogin() async {
-    final email = await storage.read(key: 'email');
-    final password = await storage.read(key: 'password');
-    if (email == null || password == null) {
-      return false;
-    }
-    final response = await http.post(
-      Uri.https(baseUrl, '/api/login'),
-      headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'email': email,
-        'password': password,
-      }),
-    );
-    return response.statusCode == 200;
-  }
-
 
   Future<void> logout() async {
     final response = await http.post(Uri.https(baseUrl, '/api/logout'));
@@ -100,18 +89,16 @@ class UserService {
       print(response.statusCode);
       print(response.body);
     }
+    /// delete all data from secure storage when logout
     await storage.deleteAll();
-
   }
 
   Future<List<User>> getUserList() async {
-
     final response = await http.get(Uri.https(baseUrl,'/api/users'));
     if (response.statusCode == 200) {
       final responseJson = jsonDecode(response.body);
       List<User> users = [];
       for (var item in responseJson['data']) {
-        print("item: $item");
         users.add(User.fromJson(item));
       }
       return users;

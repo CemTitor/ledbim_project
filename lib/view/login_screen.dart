@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ledbim_project/service/user_service.dart';
-import 'package:ledbim_project/view/register_screen.dart';
-
-import '../main.dart';
+import 'package:ledbim_project/view/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,26 +10,27 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   final UserService _userService = UserService();
 
   @override
-  Future<void> initState() async {
-    if(await _userService.checkLogin()){
+  void initState() {
+    super.initState();
+    skipLoginPage();
+  }
+
+  Future skipLoginPage() async {
+    if (await _userService.isUserAlreadyLogged()) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const HomePage(),
+          builder: (context) => const HomeScreen(),
         ),
       );
     }
-    super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,25 +60,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             ElevatedButton(
               onPressed: () async {
-                  _userService.login(_emailController.text, _passwordController.text,context);
-
-
+                _userService.login(
+                  _emailController.text,
+                  _passwordController.text,
+                  context,
+                );
               },
               child: const Text('Login'),
             ),
             const SizedBox(
               height: 16,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegisterScreen(),
-                  ),
-                );
-              },
-              child: const Text('Register Now'),
             ),
           ],
         ),
